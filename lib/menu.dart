@@ -8,9 +8,9 @@ class MyHomePage extends StatelessWidget {
   final String kelas = 'PBP F';
 
   final List<ItemHomepage> items = [
-    ItemHomepage('Lihat Proyek', Icons.folder),
-    ItemHomepage('Tambah Proyek', Icons.add_circle),
-    ItemHomepage('Logout', Icons.logout),
+    ItemHomepage('Lihat Proyek', Icons.folder, Colors.blue.shade700),
+    ItemHomepage('Tambah Proyek', Icons.add_circle, Colors.green.shade700),
+    ItemHomepage('Logout', Icons.logout, Colors.red.shade700),
   ];
 
   @override
@@ -65,6 +65,7 @@ class MyHomePage extends StatelessWidget {
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                     crossAxisCount: 3,
+                    mainAxisExtent: 160,
                     shrinkWrap: true,
                     children: items.map((item) => ItemCard(item)).toList(),
                   ),
@@ -106,8 +107,9 @@ class InfoCard extends StatelessWidget {
 class ItemHomepage {
   final String name;
   final IconData icon;
+  final Color color;
 
-  ItemHomepage(this.name, this.icon);
+  ItemHomepage(this.name, this.icon, this.color);
 }
 
 class ItemCard extends StatelessWidget {
@@ -118,7 +120,7 @@ class ItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Theme.of(context).colorScheme.secondary,
+      color: item.color,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
