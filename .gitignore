@@ -8,7 +8,8 @@
 *.iml
 .buildlog/
 .history
-
+.vscode
+AGENTS.md
 
 
 # Flutter repo-specific
@@ -122,3 +123,5 @@ app.*.symbols
 
 # Aplikasi Flutter menyimpan versi dependensi agar build konsisten.
 !/pubspec.lock
+# Widget Preview related
+.widget_preview/
