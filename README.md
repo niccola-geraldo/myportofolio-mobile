@@ -1,10 +1,12 @@
 # myportofolio_mobile
 
-Hasil Tutorial 08: Basic Flutter, mulai dari merapikan struktur proyek.
+Hasil Tutorial 09 tentang navigasi, layout, formulir, dan elemen input pada Flutter.
 
 - `lib/main.dart`: titik masuk aplikasi dan tema Material 3 (indigo dan amber).
-- `lib/menu.dart`: halaman menu stateless, `InfoCard`, `ItemHomepage`, dan `ItemCard`.
-- Tombol Lihat Proyek, Tambah Proyek, dan Logout menampilkan SnackBar.
+- `lib/screens/menu.dart` menampilkan identitas dan tiga kartu aksi.
+- `lib/widgets/project_card.dart` menampilkan SnackBar ketika kartu ditekan. Kartu **Tambah Proyek** juga membuka formulir. Tombol Back mengembalikan pengguna ke menu.
+- `lib/widgets/left_drawer.dart` menyediakan pilihan **Home** dan **Add Project** untuk mengganti halaman aktif.
+- `lib/screens/project_form.dart` memuat formulir proyek. Nama dan deskripsi wajib diisi. Tombol **Save** menampilkan kelima isian dalam dialog konfirmasi. Tombol **OK** menutup dialog dan mengosongkan kolom teks. Kategori terakhir tetap terpilih.
 
 Jalankan aplikasi di Chrome:
 
@@ -24,11 +26,11 @@ Simpan hasil tutorial ke repositori GitHub yang sudah terhubung:
 
 ```sh
 git add .
-git commit -m "Tutorial 08: Basic Flutter"
-git push -u origin main
+git commit -m "Tutorial 09: Flutter navigation, layouts, forms, and input elements"
+git push -u origin feat/tutorial-09
 ```
 
-Tutorial: https://pbp.cs.ui.ac.id/tutorial/tutorial-8.html
+Materi sebelumnya: [Tutorial 08](https://pbp.cs.ui.ac.id/tutorial/tutorial-8.html).
 
 ### Tugas 7
 
