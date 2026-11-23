@@ -5,7 +5,7 @@ import 'package:myportofolio_mobile/screens/menu.dart';
 import 'package:myportofolio_mobile/widgets/project_card.dart';
 
 void main() {
-  testWidgets('Menu menampilkan identitas dan ketiga tombol aksi', (
+  testWidgets('Menu menampilkan identitas dan keempat tombol aksi', (
     tester,
   ) async {
     await tester.pumpWidget(const MyApp());
@@ -15,7 +15,7 @@ void main() {
     expect(find.text('Niccola Geraldo Winaryo Durand'), findsOneWidget);
     expect(find.text('PBP F'), findsOneWidget);
     expect(find.byType(InfoCard), findsNWidgets(3));
-    expect(find.byType(ItemCard), findsNWidgets(3));
+    expect(find.byType(ItemCard), findsNWidgets(4));
     expect(find.text('Selamat datang di MyPortfolio Mobile!'), findsOneWidget);
     expect(find.byType(FloatingActionButton), findsNothing);
   });

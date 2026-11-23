@@ -1,11 +1,11 @@
 # myportofolio_mobile
 
-Hasil Tutorial 09 tentang navigasi, layout, formulir, dan elemen input pada Flutter.
+Aplikasi portofolio mobile berbasis Flutter untuk Tutorial 09 dan Tugas 8 tentang navigasi, layout, formulir, dan elemen input.
 
 - `lib/main.dart`: titik masuk aplikasi dan tema Material 3 (indigo dan amber).
-- `lib/screens/menu.dart` menampilkan identitas dan tiga kartu aksi.
+- `lib/screens/menu.dart` menampilkan identitas dan empat kartu aksi.
 - `lib/widgets/project_card.dart` menampilkan SnackBar ketika kartu ditekan. Kartu **Tambah Proyek** juga membuka formulir. Tombol Back mengembalikan pengguna ke menu.
-- `lib/widgets/left_drawer.dart` menyediakan pilihan **Home** dan **Add Project** untuk mengganti halaman aktif.
+- `lib/widgets/left_drawer.dart` menyediakan pilihan **Home**, **Add Project**, dan **Add Education**.
 - `lib/screens/project_form.dart` memuat formulir proyek. Nama dan deskripsi wajib diisi. Tombol **Save** menampilkan kelima isian dalam dialog konfirmasi. Tombol **OK** menutup dialog dan mengosongkan kolom teks. Kategori terakhir tetap terpilih.
 
 Jalankan aplikasi di Chrome:
@@ -79,6 +79,27 @@ Materi sebelumnya: [Tutorial 08](https://pbp.cs.ui.ac.id/tutorial/tutorial-8.htm
    Hot restart menjalankan ulang aplikasi Flutter dari awal dan menghapus state yang sedang berjalan. Gunakan ketika perubahan perlu menjalankan ulang inisialisasi dalam `main()` atau `initState()`, atau ketika perubahan struktur kode tidak dapat diterapkan melalui hot reload.
 
    Full restart berarti menghentikan dan menjalankan kembali aplikasi, termasuk membangun ulang bagian platform jika diperlukan. Ini dibutuhkan ketika mengubah kode native seperti Kotlin, Java, Swift, atau Objective-C, serta ketika perubahan plugin atau konfigurasi platform memerlukan build ulang. Pada proyek ini, perubahan warna kartu biasanya cukup diperiksa dengan hot reload pada target pengembangan yang mendukungnya; perubahan inisialisasi lebih tepat diperiksa melalui hot restart. Lihat [dokumentasi hot reload Flutter](https://docs.flutter.dev/tools/hot-reload).
+
+
+### Tugas 8
+
+Pada Tugas 8, kartu **Tambah Edukasi** dan opsi **Add Education** di drawer membuka formulir pendidikan. Formulir menampilkan ringkasan setelah seluruh isian lolos validasi. Jalankan `flutter pub get`, lalu `flutter run -d chrome` untuk mencoba kedua jalur dan kembali lewat **Home** di drawer. Gunakan `flutter analyze` dan `flutter test` untuk memeriksa kode dan alur formulir.
+
+1. **Apa perbedaan `Navigator.push()`, `Navigator.pushReplacement()`, dan `Navigator.pop()`?**
+
+   `push()` meletakkan halaman baru di atas halaman aktif, sehingga tombol kembali dapat menampilkan halaman sebelumnya. Kartu **Tambah Edukasi** menggunakan cara ini. `pushReplacement()` mengganti halaman aktif dan digunakan saat memilih formulir dari drawer. `pop()` menutup rute teratas, misalnya dialog ringkasan, atau menutup drawer yang terbuka. Saat **Home** dipilih, drawer ditutup terlebih dahulu. Jika halaman utama masih ada di tumpukan, `popUntil()` kembali ke halaman tersebut. Jika formulir telah menggantikannya, `pushReplacement()` membuka kembali halaman utama.
+
+2. **Bagaimana `Scaffold`, `AppBar`, dan `Drawer` menjaga konsistensi halaman?**
+
+   `Scaffold` menyediakan tempat untuk bilah judul, isi halaman, dan drawer. `AppBar` menampilkan judul halaman, sedangkan `LeftDrawer` menyediakan opsi navigasi yang sama dari menu utama dan formulir. Misalnya, `AppBar` di menu utama dan formulir edukasi mengambil warna latar dari `Theme.of(context).colorScheme.primary`.
+
+3. **Mengapa formulir menggunakan tata letak ini?**
+
+   `Column` menyusun isian dalam satu alur vertikal. `Padding` memberi ruang di tepi layar dan `SizedBox` memisahkan bidang yang berdekatan. `SingleChildScrollView` memungkinkan pengguna menggulir hingga **Simpan** ketika tinggi layar terbatas atau papan ketik sedang tampil.
+
+4. **Apa peran `GlobalKey<FormState>`, `validator`, dan `validate()` saat Simpan ditekan?**
+
+   `GlobalKey<FormState>` memberi tombol akses ke state formulir. `validate()` menjalankan `validator` setiap bidang dan menampilkan pesan kesalahan dari bidang yang gagal.
 
 ## AI Disclosure
 
