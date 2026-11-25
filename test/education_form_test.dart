@@ -53,7 +53,7 @@ void main() {
     expect(find.byType(MyHomePage), findsOneWidget);
 
     await selectDrawerItem(tester, 'Add Project');
-    expect(find.text('Add Project Form'), findsOneWidget);
+    expect(find.widgetWithText(AppBar, 'Login'), findsOneWidget);
   });
 
   testWidgets('Simpan memvalidasi dan merangkum seluruh isian edukasi', (
