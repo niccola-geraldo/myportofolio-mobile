@@ -2,6 +2,8 @@ import 'package:material_ui/material_ui.dart';
 import 'package:myportofolio_mobile/screens/education_form.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
 import 'package:myportofolio_mobile/screens/project_form.dart';
+import 'package:myportofolio_mobile/screens/project_list_screen.dart';
+import 'package:myportofolio_mobile/widgets/auth_guard.dart';
 
 class ItemCard extends StatelessWidget {
   final ItemHomepage item;
@@ -15,24 +17,35 @@ class ItemCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        // Area responsif terhadap sentuhan
-        onTap: () {
-          // Memunculkan SnackBar ketika diklik
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Text("Kamu telah menekan tombol ${item.name}!"),
-              ),
-            );
-
-          final page = switch (item.name) {
-            'Tambah Proyek' => const ProjectFormPage(),
-            'Tambah Edukasi' => const EducationFormPage(),
-            _ => null,
-          };
-          if (page != null) {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => page));
+        onTap: () async {
+          switch (item.name) {
+            case 'Lihat Proyek':
+              Navigator.push<void>(
+                context,
+                MaterialPageRoute(builder: (_) => const ProjectListScreen()),
+              );
+            case 'Tambah Proyek':
+              if (!await ensureLoggedIn(context) || !context.mounted) return;
+              Navigator.push<bool>(
+                context,
+                MaterialPageRoute(builder: (_) => const ProjectFormPage()),
+              );
+            case 'Login':
+              await ensureLoggedIn(context);
+            case 'Logout':
+              await logoutWithFeedback(context);
+            case 'Tambah Edukasi':
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  const SnackBar(
+                    content: Text('Kamu telah menekan tombol Tambah Edukasi!'),
+                  ),
+                );
+              Navigator.push<void>(
+                context,
+                MaterialPageRoute(builder: (_) => const EducationFormPage()),
+              );
           }
         },
         child: Container(

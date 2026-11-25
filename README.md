@@ -1,34 +1,43 @@
 # myportofolio_mobile
 
-Aplikasi portofolio mobile berbasis Flutter untuk Tutorial 09 dan Tugas 8 tentang navigasi, layout, formulir, dan elemen input.
+Aplikasi portofolio mobile berbasis Flutter yang mengambil dan menambahkan proyek melalui Django REST Framework.
 
-- `lib/main.dart`: titik masuk aplikasi dan tema Material 3 (indigo dan amber).
-- `lib/screens/menu.dart` menampilkan identitas dan empat kartu aksi.
-- `lib/widgets/project_card.dart` menampilkan SnackBar ketika kartu ditekan. Kartu **Tambah Proyek** juga membuka formulir. Tombol Back mengembalikan pengguna ke menu.
-- `lib/widgets/left_drawer.dart` menyediakan pilihan **Home**, **Add Project**, dan **Add Education**.
-- `lib/screens/project_form.dart` memuat formulir proyek. Nama dan deskripsi wajib diisi. Tombol **Save** menampilkan kelima isian dalam dialog konfirmasi. Tombol **OK** menutup dialog dan mengosongkan kolom teks. Kategori terakhir tetap terpilih.
+- **Lihat Proyek** membuka daftar publik dengan tarik untuk menyegarkan. Pilih proyek untuk membuka detailnya.
+- **Tambah Proyek** meminta login sebelum membuka formulir. Gunakan akun superuser Django untuk menyimpan proyek.
+- **Logout** mencabut token di Django dan membersihkan sesi lokal. Token disimpan di memori selama aplikasi berjalan.
+- **Tambah Edukasi** membuka formulir ringkasan lokal dari Tugas 8.
 
-Jalankan aplikasi di Chrome:
+## Menjalankan Tutorial 10
+
+Siapkan backend Django `myportofolio` dengan konfigurasi lokalnya. Di direktori Django, pasang dependensi, jalankan migrasi token, lalu mulai server.
+
+```sh
+python -m pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+Di direktori Flutter, pasang dependensi dan hasilkan kode serialisasi sebelum menjalankan aplikasi.
 
 ```sh
 flutter pub get
-flutter run -d chrome
+dart run build_runner build
 ```
 
-Periksa kualitas kode dan interaksi antarmuka:
+- Emulator Android memakai `flutter run` dengan URL bawaan `http://10.0.2.2:8000`.
+- Chrome memakai `flutter run -d chrome --dart-define=API_BASE_URL=http://localhost:8000`.
+- Perangkat Android yang tersambung melalui USB dapat menjalankan `adb reverse tcp:8000 tcp:8000`, lalu `flutter run --dart-define=API_BASE_URL=http://localhost:8000`.
+- Backend produksi memakai `--dart-define=API_BASE_URL=https://domain-backend`. Untuk Flutter Web yang di-host, daftarkan origin web di variabel `CORS_ALLOWED_ORIGINS` backend.
+
+Jalankan pemeriksaan lokal dari direktori Flutter.
 
 ```sh
+dart format --output=none --set-exit-if-changed lib test
 flutter analyze
 flutter test
 ```
 
-Simpan hasil tutorial ke repositori GitHub yang sudah terhubung:
-
-```sh
-git add .
-git commit -m "Tutorial 09: Flutter navigation, layouts, forms, and input elements"
-git push -u origin feat/tutorial-09
-```
+GitHub Actions menjalankan pemeriksaan ini saat pull request dan saat ada push ke `main`. Setelah pemeriksaan berhasil, job `build_apk` mengunggah artefak `app-release-apk`. Untuk mengarahkan APK ke backend produksi, isi variabel repositori Actions `API_BASE_URL` dengan URL HTTPS backend.
 
 Materi sebelumnya: [Tutorial 08](https://pbp.cs.ui.ac.id/tutorial/tutorial-8.html).
 
